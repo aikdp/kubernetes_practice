@@ -4,7 +4,7 @@ metadata:
   name: expense-prod
   region: us-east-1
 managedNodeGroups:
-  - name: prod-nodes
+  - name: dev-nodes
     instanceType: m5.large
     desiredCapacity: 3
     spot: true
