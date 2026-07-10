@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: NameSpace
+metadata:
+  name: prod
+  labels:
+    project: expense
+    env: prod

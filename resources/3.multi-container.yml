@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container
+  labels:
+    project: expense
+    env: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+  - name: alamalinux
+    image: alamalinux:9
+    # ["sh", "-c", "sleep 1h"]
+    command: ["sh", "-c", "slepp 1000"]
+---
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: multi-container-example
+#   labels:
+#     app: web-logger
+# spec:
+#   volumes:
+#     - name: shared-logs
+#       emptyDir: {}
+#   containers:
+#     # Primary Application Container
+#     - name: main-web-app
+#       image: nginx:alpine
+#       ports:
+#         - containerPort: 80
+#       volumeMounts:
+#         - name: shared-logs
+#           mountPath: /var/log/nginx
+
+#     # Helper Sidecar Container
+#     - name: sidecar-log-shipper
+#       image: busybox:1.36
+#       command: ["sh", "-c", "while true; do tail -n 2 /logs/access.log; sleep 10; done"]
+#       volumeMounts:
+#         - name: shared-logs
+#           mountPath: /logs
