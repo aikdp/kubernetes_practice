@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+metadata: 
+  name: labels
+  labels: 
+    project: expense
+    component: backend	#u can write component name module: backend as well
+    environment: dev	
+spec:
+  containers:
+  - name: nginx
+    image: nginx

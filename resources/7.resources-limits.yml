@@ -1,0 +1,15 @@
+apiVesrion: v1
+kind: Pod
+metadata:
+  name: limits
+spec:
+  containers:
+  - name: env
+    image: nginx
+    resources:
+      requests:
+        cpu: 250m
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 128Mi
