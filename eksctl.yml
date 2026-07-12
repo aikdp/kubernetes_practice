@@ -13,11 +13,11 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: expense2
+  name: expense3
   region: us-east-1
 managedNodeGroups:
   - name: dev
     instanceType: t3.small
     desiredCapacity: 2
     # Remove the line below
-    # spot: true
+    spot: true
