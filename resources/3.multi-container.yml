@@ -14,7 +14,7 @@ spec:
   - name: alamalinux
     image: almalinux:9
     # ["sh", "-c", "sleep 1h"]
-    command: ["sh", "-c", "slepp 1000"]
+    command: ["sh", "-c", "sleep 1000"]
 ---
 # apiVersion: v1
 # kind: Pod
