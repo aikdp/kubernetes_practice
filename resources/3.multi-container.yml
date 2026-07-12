@@ -12,7 +12,7 @@ spec:
     ports:
     - containerPort: 80
   - name: alamalinux
-    image: alamalinux:9
+    image: almalinux:9
     # ["sh", "-c", "sleep 1h"]
     command: ["sh", "-c", "slepp 1000"]
 ---
