@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: ng
-        image: nginx  #try to chnage version of image and apply. it won't create bew verisons
+        image: nginx:1.25  #try to chnage version of image and apply. it won't create bew verisons
 ---
 apiVersion: v1
 kind: Service
