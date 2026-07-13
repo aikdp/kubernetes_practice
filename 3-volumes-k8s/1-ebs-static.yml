@@ -20,20 +20,20 @@ spec:
   #             operator: In
   #             values:
   #               - us-east-1a # Replace with your volume's Availability Zone
-# ---
-# #PVC
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: static-ebs-pvc
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: "" # Must match the PV's storageClassName
-#   volumeName: static-ebs-pv # Direct link to the PV created above
-#   resources:
-#     requests:
-#       storage: 5Gi
+---
+#PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-ebs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "" # Must match the PV's storageClassName
+  volumeName: static-ebs-pv # Direct link to the PV created above
+  resources:
+    requests:
+      storage: 5Gi
 # ---
 # #POD
 # apiVersion: v1
