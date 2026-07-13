@@ -1,0 +1,65 @@
+#EFS PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: static-efs-pv
+spec:
+  capacity:
+    storage: 4Gi  # Placeholder value (EFS scales automatically)
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""  # Must match the PVC storageClassName
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-0af8770e37ff6bdf9  # Replace with your actual EFS File System ID
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: static-efs-pvc
+# spec:
+#   volumeName: static-efs-pv
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: efs-sc  # Links to the PV
+#   resources:
+#     requests:
+#       storage: 2Gi
+# ---
+# #POD
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: static-efs-app
+#   labels:
+#     purpose: roboshop-efs-static
+# spec:
+#   # nodeSelector:
+#   #   topology.kubernetes.io/zone: us-east-1c   #based on your nodes az, replace here
+#   containers:
+#     - name: web-server
+#       image: nginx
+#       volumeMounts:
+#         - name: storage-volume
+#           mountPath: /usr/share/nginx/html
+#   volumes:
+#     - name: storage-volume
+#       persistentVolumeClaim:
+#         claimName: static-efs-pvc
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: static-efs-svc
+# spec:
+#   selector:
+#     purpose: roboshop-efs-static
+#   ports:
+#   - name: lb-svc-nginx
+#     protocol: TCP
+#     port: 80
+#     targetPort: 80
+#     nodePort: 30007
+#   type: LoadBalancer
