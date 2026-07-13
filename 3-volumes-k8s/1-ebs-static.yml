@@ -34,27 +34,27 @@ spec:
   resources:
     requests:
       storage: 5Gi
-# ---
-# #POD
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: app-using-ebs
-#   labels:
-#     purpose: roboshop
-# spec:
-#   nodeSelector:
-#     topology.kubernetes.io/zone: us-east-1c   #based on your nodes az, replace here
-#   containers:
-#     - name: web-server
-#       image: nginx
-#       volumeMounts:
-#         - name: storage-volume
-#           mountPath: /usr/share/nginx/html
-#   volumes:
-#     - name: storage-volume
-#       persistentVolumeClaim:
-#         claimName: static-ebs-pvc
+---
+#POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-ebs-app
+  labels:
+    purpose: roboshop
+spec:
+  # nodeSelector:
+  #   topology.kubernetes.io/zone: us-east-1c   #based on your nodes az, replace here
+  containers:
+    - name: web-server
+      image: nginx
+      volumeMounts:
+        - name: storage-volume
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: storage-volume
+      persistentVolumeClaim:
+        claimName: static-ebs-pvc
 # ---
 # apiVersion: v1
 # kind: Service
