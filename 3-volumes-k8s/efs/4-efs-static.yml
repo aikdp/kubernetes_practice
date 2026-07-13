@@ -14,19 +14,19 @@ spec:
   csi:
     driver: efs.csi.aws.com
     volumeHandle: fs-0af8770e37ff6bdf9  # Replace with your actual EFS File System ID
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: static-efs-pvc
-# spec:
-#   volumeName: static-efs-pv
-#   accessModes:
-#     - ReadWriteMany
-#   storageClassName: efs-sc  # Links to the PV
-#   resources:
-#     requests:
-#       storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-efs-pvc
+spec:
+  volumeName: static-efs-pv
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""  # Links to the PV
+  resources:
+    requests:
+      storage: 2Gi
 # ---
 # #POD
 # apiVersion: v1
