@@ -55,18 +55,18 @@ spec:
     - name: storage-volume
       persistentVolumeClaim:
         claimName: static-ebs-pvc
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: static-ebs-svc
-# spec:
-#   selector:
-#     purpose: roboshop
-#   ports:
-#   - name: lb-svc-nginx
-#     protocol: TCP
-#     port: 80
-#     targetPort: 80
-#     nodePort: 30007
-#   type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-ebs-svc
+spec:
+  selector:
+    purpose: roboshop
+  ports:
+  - name: lb-svc-nginx
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30007
+  type: LoadBalancer
