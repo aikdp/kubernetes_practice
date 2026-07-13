@@ -9,7 +9,7 @@ spec:
   storageClassName: "dynamic-efs-sc"
   resources:
     requests:
-      storage: 4Gi
+      storage: 2Gi
 ---
 #PODS efs Dynamic
 apiVersion: v1
