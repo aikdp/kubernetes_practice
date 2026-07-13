@@ -1,10 +1,10 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
   namespace: expense
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       project: expense
