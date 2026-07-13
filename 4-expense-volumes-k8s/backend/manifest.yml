@@ -4,7 +4,7 @@ metadata:
     name: backend
     namespace: expense
 data:
-  DB_HOST: mysql  #this is service name of mysql deployment file
+  DB_HOST: mysql-svc  #this is service name of mysql deployment file
 ---
 apiVersion: apps/v1
 kind: Deployment
