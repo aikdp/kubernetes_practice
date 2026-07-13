@@ -6,7 +6,7 @@ metadata:
 data:
   DB_HOST: mysql  #this is service name of mysql deployment file
 ---
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
