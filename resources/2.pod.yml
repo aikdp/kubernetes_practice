@@ -4,6 +4,7 @@ metadata:
   name: nginx
   labels:
     project: expense
+    app: nginx
     env: dev
 spec:
   containers:
