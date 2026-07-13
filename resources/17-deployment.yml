@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dep-nginx
 spec:
-  replicas: 15
+  replicas: 14
   selector:
     matchLabels:
       app: nginx
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: ng
-        image: nginx:1.25  #try to chnage version of image and apply. it won't create bew verisons
+        image: nginx:alpine  #try to chnage version of image and apply. it won't create bew verisons
 ---
 apiVersion: v1
 kind: Service
