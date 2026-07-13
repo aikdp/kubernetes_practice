@@ -27,39 +27,39 @@ spec:
   resources:
     requests:
       storage: 2Gi
-# ---
-# #POD
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: static-efs-app
-#   labels:
-#     purpose: roboshop-efs-static
-# spec:
-#   # nodeSelector:
-#   #   topology.kubernetes.io/zone: us-east-1c   #based on your nodes az, replace here
-#   containers:
-#     - name: web-server
-#       image: nginx
-#       volumeMounts:
-#         - name: storage-volume
-#           mountPath: /usr/share/nginx/html
-#   volumes:
-#     - name: storage-volume
-#       persistentVolumeClaim:
-#         claimName: static-efs-pvc
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: static-efs-svc
-# spec:
-#   selector:
-#     purpose: roboshop-efs-static
-#   ports:
-#   - name: lb-svc-nginx
-#     protocol: TCP
-#     port: 80
-#     targetPort: 80
-#     nodePort: 30007
-#   type: LoadBalancer
+---
+#POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-efs-app
+  labels:
+    purpose: roboshop-efs-static
+spec:
+  # nodeSelector:
+  #   topology.kubernetes.io/zone: us-east-1d   #based on your nodes az, replace here
+  containers:
+    - name: web-server
+      image: nginx
+      volumeMounts:
+        - name: storage-volume
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: storage-volume
+      persistentVolumeClaim:
+        claimName: static-efs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-efs-svc
+spec:
+  selector:
+    purpose: roboshop-efs-static
+  ports:
+  - name: lb-svc-nginx
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30007
+  type: LoadBalancer
