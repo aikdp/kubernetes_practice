@@ -46,12 +46,12 @@ spec:
       tier: db
   serviceName: "mysql-headless-svc"
   replicas: 2
-  # template:
-  #   metadata:
-  #     labels:
-  #       project: expense
-  #       component: mysql
-  #       tier: db
+  template:
+    metadata:
+      labels:
+        project: expense
+        component: mysql
+        tier: db
   #   spec:
   #     containers:
   #     - name: mysql
@@ -61,16 +61,16 @@ spec:
   #       volumeMounts:
   #       - name: mysql
   #         mountPath: /var/lib/mysql
-  template:
-  spec:
-    securityContext:
-      fsGroup: 999
-    containers:
-    - name: mysql
-      image: kdprasad028/mysql_july:v1
-      volumeMounts:
+
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
       - name: mysql
-        mountPath: /var/lib/mysql
+        image: kdprasad028/mysql_july:v1
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
       name: mysql
