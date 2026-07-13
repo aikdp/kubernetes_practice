@@ -2,6 +2,10 @@ kind: Pod
 apiVersion: v1
 metadata: 
   name: annotations
+  labels:
+    project: expense
+    module: backend
+    env: dev
   annotations: 
     imageregistry: https://hub.docker.com/
     buildURL: “https://jenkins.joindevops.com/expense/backed/build/67”	
