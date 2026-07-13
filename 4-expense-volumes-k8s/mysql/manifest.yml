@@ -11,8 +11,8 @@ spec:
     component: mysql
     tier: db
   ports:
-  - name: mysql-svc-port
-    protocol: TCP
+  # - name: mysql-svc-port
+  - protocol: TCP
     port: 3306
     targetPort: 3306
 ---
@@ -28,8 +28,8 @@ spec:
     component: mysql
     tier: db
   ports:
-  - name: mysql-svc
-    protocol: TCP
+  # - name: mysql-svc
+  - protocol: TCP
     port: 3306
     targetPort: 3306
 ---
@@ -56,8 +56,8 @@ spec:
       containers:
       - name: mysql
         image: kdprasad028/mysql_july:v1
-        ports:
-        - containerPort: 3306
+        # ports:
+        # - containerPort: 3306
         volumeMounts:
         - name: mysql
           mountPath: /var/lib/mysql
