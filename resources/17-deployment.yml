@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: nginx
-        tier: backed
+        tier: backend
         env: dev
     spec:
       containers:
@@ -27,7 +27,7 @@ metadata:
 spec:
   selector:
     app: nginx
-    tier: backed
+    tier: backend
     env: dev
   ports:
   - name: nginx-port
