@@ -2,9 +2,13 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: limits
+  labels:
+    app: frontend
+    project: robo
+    envronment: prod
 spec:
   containers:
-  - name: env
+  - name: nginx-lmt
     image: nginx
     resources:
       requests:
