@@ -1,0 +1,71 @@
+#headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless-svc
+  namespace: expense
+spec:
+  clusterIP: None # Defines it as a Headless Service
+  selector:
+    project: expense
+    component: mysql
+    tier: db
+  ports:
+  - name: mysql-svc-port
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+---
+#normal service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  namespace: expense
+spec:
+  selector:
+    project: expense
+    component: mysql
+    tier: db
+  ports:
+  - name: mysql-svc
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      project: expense
+      component: mysql
+      tier: db
+  serviceName: "mysql-headless-svc"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        project: expense
+        component: mysql
+        tier: db
+    spec:
+      containers:
+      - name: mysql
+        image: kdprasad028/mysql_july:v1
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "expense-ebs-sc"
+      resources:
+        requests:
+          storage: 1Gi

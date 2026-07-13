@@ -1,0 +1,48 @@
+#PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-dynamic-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "ebs-dynamic-sc"
+  resources:
+    requests:
+      storage: 3Gi
+---
+#POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ebs-dynamic-app
+  labels:
+    purpose: roboshop-dynamic
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1c   #based on your nodes az, replace here
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - name: storage-volume
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: storage-volume
+      persistentVolumeClaim:
+        claimName: ebs-dynamic-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dynamic-ebs-svc
+spec:
+  selector:
+    purpose: roboshop-dynamic
+  ports:
+  - name: lb-svc-nginx
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30007
+  type: LoadBalancer

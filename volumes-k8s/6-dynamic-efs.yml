@@ -1,0 +1,47 @@
+#Dynamic PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dynamic-efs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "dynamic-efs-sc"
+  resources:
+    requests:
+      storage: 4Gi
+---
+#PODS efs Dynamic
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dynamic-efs-app
+  labels:
+    app: dynamic-efs-app
+spec:
+  containers:
+    - name: app-container
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: efs-storage-volume
+          mountPath: /usr/share/nginx/html # Mounts EFS to Nginx web root
+  volumes:
+    - name: efs-storage-volume
+      persistentVolumeClaim:
+        claimName: dynamic-efs-pvc # Must match your PVC name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: efs-dynamic-svc
+spec:
+  type: LoadBalancer # Use 'LoadBalancer' if you want external public access
+  selector:
+    app: dynamic-efs-app # Links the Service to your Pod label
+  ports:
+    - protocol: TCP
+      port: 80 # Port exposed by the Service
+      targetPort: 80 # Port the Nginx container listens on
+      nodePort: 30007

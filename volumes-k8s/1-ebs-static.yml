@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: static-ebs-pv
+spec:
+  accessModes:
+    - ReadWriteOnce # EBS only supports ReadWriteOnce
+  capacity:
+    storage: 20Gi # Must match your actual EBS volume size
+  # storageClassName: "" # Keep empty or use a specific name to prevent default SC overrides
+  csi:
+    driver: ebs.csi.aws.com
+    fsType: ext4
+    volumeHandle:  # Replace with your actual EBS Volume ID
+  # nodeAffinity:
+  #   required:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #           - key: topology.kubernetes.io/zone
+  #             operator: In
+  #             values:
+  #               - us-east-1a # Replace with your volume's Availability Zone
+---
+#PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-ebs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "" # Must match the PV's storageClassName
+  volumeName: static-ebs-pv # Direct link to the PV created above
+  resources:
+    requests:
+      storage: 5Gi
+---
+#POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-using-ebs
+  labels:
+    purpose: roboshop
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1c   #based on your nodes az, replace here
+  containers:
+    - name: web-server
+      image: nginx
+      volumeMounts:
+        - name: storage-volume
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: storage-volume
+      persistentVolumeClaim:
+        claimName: static-ebs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-ebs-svc
+spec:
+  selector:
+    purpose: roboshop
+  ports:
+  - name: lb-svc-nginx
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30007
+  type: LoadBalancer
