@@ -61,15 +61,15 @@ spec:
   #       volumeMounts:
   #       - name: mysql
   #         mountPath: /var/lib/mysql
-  spec:
-    securityContext:
-      fsGroup: 999
-    containers:
-    - name: mysql
-      image: kdprasad028/mysql_july:v1
-      volumeMounts:
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
       - name: mysql
-        mountPath: /var/lib/mysql
+        image: kdprasad028/mysql_july:v1
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
       name: mysql
