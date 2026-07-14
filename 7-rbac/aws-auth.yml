@@ -11,10 +11,17 @@ data:
       - pod-reader
       userarn: arn:aws:iam::240939827212:user/suresh
       username: suresh
+    - groups:
+      - pod-admin
+      userarn: arn:aws:iam::240939827212:user/ramesh
+      username: ramesh
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2026-07-14T10:48:00Z"
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"mapRoles":"- rolearn: arn:aws:iam::240939827212:role/eksctl-expense3-nodegroup-dev-NodeInstanceRole-plESS21FTMN5\n  groups:\n  - system:bootstrappers\n  - system:nodes\n  username: system:node:{{EC2PrivateDNSName}}\n","mapUsers":"- groups:\n  - pod-reader\n  userarn: arn:aws:iam::240939827212:user/suresh\n  username: suresh\n"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2026-07-14T10:48:00Z","name":"aws-auth","namespace":"kube-system","uid":"fca14c9c-cbc9-45df-8882-c2b030574540"}}
+  creationTimestamp: "2026-07-14T13:58:54Z"
   name: aws-auth
   namespace: kube-system
-  # resourceVersion: "1311"
-  uid: fca14c9c-cbc9-45df-8882-c2b030574540
+  # resourceVersion: "34635"
+  uid: a337c6af-542c-4285-a989-e54912c8f3b4
