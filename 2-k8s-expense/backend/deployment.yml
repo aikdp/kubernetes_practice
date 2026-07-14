@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: expense
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: expense
+      module: backend
+      env: dev
+  template:
+    metadata:
+      labels:
+        project: expense
+        module: backend
+        env: dev
+    spec:
+      containers:
+      - name: backend
+        image: kdprasad028/backend_july:v1  #try to chnage version of image and apply. it won't create bew verisons
+        envFrom:
+        - configMapRef:
+            name: backend

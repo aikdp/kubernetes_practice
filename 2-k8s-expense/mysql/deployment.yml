@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: expense
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: expense
+      module: mysql
+      env: dev
+  template:
+    metadata:
+      labels:
+        project: expense
+        module: mysql
+        env: dev
+    spec:
+      containers:
+      - name: mysql
+        image: kdprasad028/mysql_july:v1  #try to chnage version of image and apply. it won't create bew verisons

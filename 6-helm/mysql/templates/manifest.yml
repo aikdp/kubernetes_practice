@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: expense
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      project: expense
+      module: mysql
+      env: dev
+  template:
+    metadata:
+      labels:
+        project: expense
+        module: mysql
+        env: dev
+    spec:
+      containers:
+      - name: mysql
+        image: kdprasad028/mysql_july:{{ .Values.deployment.imageVersion }}  #try to chnage version of image and apply. it won't create bew verisons
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: expense
+spec:
+  selector:
+    project: expense
+    module: mysql
+    env: dev
+  ports:
+  - name: mysql-port
+    protocol: TCP
+    port: 3306 #service port
+    targetPort: 3306  #container port(app port)

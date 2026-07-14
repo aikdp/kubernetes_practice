@@ -1,0 +1,4 @@
+apiVersion: v1
+name: frontend
+version: 1.2.3
+description: A Helm chart for deploying frontend application on Kubernetes

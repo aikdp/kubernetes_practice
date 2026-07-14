@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-nginx
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: nginx
+      tier: backend
+      env: dev
+  template:
+    metadata:
+      labels:
+        app: nginx
+        tier: backend
+        env: dev
+    spec:
+      containers:
+      - name: ng
+        image: nginx:{{ .Values.deployment.imageVersion }}  #try to chnage version of image and apply. it won't create bew verisons
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dep-nginx-sr
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: nginx
+    tier: backend
+    env: dev
+  ports:
+  - name: nginx-port
+    protocol: TCP
+    port: 80 #service port
+    targetPort: 80  #container port(app port)
