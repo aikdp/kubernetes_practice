@@ -1,5 +1,5 @@
 deployment:
   replicas: 1
-  imageVersion: 1.23
+  imageVersion: alpine
 service:
   type: LoadBalancer
