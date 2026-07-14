@@ -7,7 +7,7 @@ data:
       - system:nodes
       username: system:node:{{EC2PrivateDNSName}}
   mapUsers: |
-    groups:
+  - groups:
     - pod-reader
     userarn: arn:aws:iam::240939827212:user/suresh
     username: system:node:{{EC2PrivateDNSName}}
