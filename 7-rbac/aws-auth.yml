@@ -10,7 +10,7 @@ data:
     - groups:
       - pod-reader
       userarn: arn:aws:iam::240939827212:user/suresh
-      username: system:node:{{EC2PrivateDNSName}}
+      username: suresh
 kind: ConfigMap
 metadata:
   creationTimestamp: "2026-07-14T10:48:00Z"
