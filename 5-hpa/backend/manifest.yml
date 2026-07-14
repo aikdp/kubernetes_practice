@@ -54,29 +54,29 @@ spec:
     protocol: TCP
     port: 8080 #service port
     targetPort: 8080  #container port(app port)
----
-#HPA
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: backend-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: backend
-  minReplicas: 1
-  maxReplicas: 4
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 15
-  # - type: Resource
-  #   resource:
-  #     name: memory
-  #     target:
-  #       type: Utilization
-  #       averageUtilization: 75
+# ---
+# #HPA
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: backend-hpa
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: backend
+#   minReplicas: 1
+#   maxReplicas: 4
+#   metrics:
+#   - type: Resource
+#     resource:
+#       name: cpu
+#       target:
+#         type: Utilization
+#         averageUtilization: 15
+#   # - type: Resource
+#   #   resource:
+#   #     name: memory
+#   #     target:
+#   #       type: Utilization
+#   #       averageUtilization: 75

@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: admin-reader # No namespace field; this is global
+  namespace: expense
+rules:
+- apiGroups: [""]
+  resources: ["nodes","persistentvolumes","namespaces"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-secrets-binding
+  # namespace: expense # Limits the ClusterRole to this namespace
+subjects:
+- kind: User
+  name: ramesh
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole # References the global ClusterRole
+  name: admin-reader
+  apiGroup: rbac.authorization.k8s.io
